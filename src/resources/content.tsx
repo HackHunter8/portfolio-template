@@ -43,8 +43,8 @@ const home: Home = {
   image: "/images/og/home.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: "Building bridges between DevOps & Machine Learning Systems",
+  description: `Portfolio website showcasing my work as a ${person.role}. DevOps and Machine Learning Systems at Scale.`,
   featured: {
     display: true,
     title: (
@@ -56,19 +56,10 @@ const home: Home = {
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/building-system",
   },
   subline: (
-    <>
-      I'm Selene, a design engineer at{" "}
-      <Logo
-        dark
-        icon="/trademarks/wordmark-dark.svg"
-        style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}
-      />
-      , where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
-    </>
+   <>I transform operations through scalable K8s deployments, ML pipelines and intelligent automation</>
   ),
 };
 
@@ -96,7 +87,7 @@ const about: About = {
         Hi I'm a Platform Engineer with experience building and maintaining scalable cloud-native applications and systems. 
         I have powered everything from ML model deployment to intelligent automation in operation. 
         Setting up robust K8s clusters, streamlining ML pipelines and applying AI to improve system reliability across multiple cloud environment. 
-        If you're looking for someone who understands systems and can bridge the gap between DevOps and ML.... let's connect
+        If you're looking for someone who understands systems and can bridge the gap between DevOps and ML.... Let's discuss your infrastructure needs!
       </>
     ),
   },
