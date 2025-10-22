@@ -5,8 +5,8 @@ const person: Person = {
   firstName: "David",
   lastName: "Ukanna",
   name: `David Ukanna`,
-  role: "DevOps Engineer",
-  avatar: "/images/avatar.jpg",
+  role: "Platform Engineering Consultant",
+  avatar: "/images/port pic.jpeg",
   email: "realdavidwealth@gmail.com",
   location: "Europe/Dublin", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: ["English"], // optional: Leave the array empty if you don't want to display languages
@@ -15,7 +15,7 @@ const person: Person = {
 const newsletter: Newsletter = {
   display: true,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>My weekly newsletter about creativity and engineering</>,
+  description: <>Weekly insights on DevOps, ML infrastructure, and cloud-native engineering</>, // Updated
 };
 
 const social: Social = [
@@ -59,7 +59,8 @@ const home: Home = {
     href: "/work/building-system",
   },
   subline: (
-   <>I transform operations through scalable K8s deployments, ML pipelines and intelligent automation</>
+   <>I help organizations deploy ML at scale and automate cloud operations,
+    all the way from architecting K8s clusters to building intelligent CI/CD pipelines that deliver measurable ROI</>
   ),
 };
 
@@ -72,6 +73,7 @@ const about: About = {
     display: true,
     subItems: false,
   },
+
   avatar: {
     display: true,
   },
@@ -92,136 +94,112 @@ const about: About = {
     ),
   },
   work: {
-    display: true, // set to false to hide this section
-    title: "Work Experience",
-    experiences: [
-      {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
-        achievements: [
-          <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
-          </>,
-          <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
-          </>,
-        ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
-        achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
-        ],
-        images: [],
-      },
-    ],
-  },
-  studies: {
-    display: true, // set to false to hide this section
-    title: "Studies",
-    institutions: [
-      {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
-      },
-      {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
-      },
-    ],
-  },
+  display: true,
+  title: "Work Experience",
+  experiences: [
+    {
+      company: "Twitch",
+      timeframe: "2023 - Present",
+      role: "Platform Engineer",
+      achievements: [
+        <>
+          Architected and maintained Kubernetes clusters serving <strong>10,000+ daily active users</strong>, 
+          achieving 99.9% uptime while reducing deployment time by 40% through GitOps automation.
+        </>,
+        <>
+          Designed and implemented an end-to-end ML pipeline that automated model deployment, 
+          reducing data scientist deployment time from <strong>2 days to 30 minutes</strong>—a 96% improvement.
+        </>,
+        <>
+          Led the integration of AI-powered monitoring and alerting systems, 
+          enabling the team to detect and resolve incidents <strong>50% faster</strong> and reducing MTTR by 35%.
+        </>,
+      ],
+      images: [],
+    },
+    {
+      company: "Mace",
+      timeframe: "2020 - 2022",
+      role: "DevOps Engineer",
+      achievements: [
+        <>
+          Pioneered Infrastructure as Code adoption across 15+ microservices, 
+          cutting infrastructure provisioning time by <strong>60%</strong> and eliminating configuration drift.
+        </>,
+        <>
+          Re-engineered CI/CD pipelines using Jenkins and GitHub Actions, 
+          reducing deployment time by <strong>35%</strong> while improving system reliability by 25%.
+        </>,
+        <>
+          Collaborated with product and engineering teams to launch new platform features, 
+          contributing to a <strong>15% increase in company revenue</strong> through improved delivery velocity.
+        </>,
+      ],
+      images: [],
+    },
+  ],
+},
   technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
-    skills: [
-      {
-        title: "Figma",
-        description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
-        ),
-        tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        title: "Next.js",
-        description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
-        ),
-        tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },  
-    ],
-  },
+  display: true,
+  title: "Technical Skills",
+  skills: [
+    {
+      title: "Kubernetes & Container Orchestration",
+      description: (
+        <>Architecting production-grade K8s clusters with high availability, auto-scaling, and disaster recovery capabilities.</>
+      ),
+      tags: [
+        { name: "Kubernetes", icon: "kubernetes" },
+        { name: "Docker", icon: "docker" },
+        { name: "Helm", icon: "helm" },
+      ],
+      images: [],
+    },
+    {
+      title: "Cloud Infrastructure & IaC",
+      description: (
+        <>Managing multi-cloud environments using Infrastructure as Code, ensuring consistency and reducing deployment time by 60%.</>
+      ),
+      tags: [
+        { name: "Terraform", icon: "terraform" },
+        { name: "AWS", icon: "aws" },
+        { name: "Azure", icon: "azure" },
+      ],
+      images: [],
+    },
+    {
+      title: "ML Operations & CI/CD",
+      description: (
+        <>Building automated pipelines for ML model deployment, monitoring, and continuous integration across development teams.</>
+      ),
+      tags: [
+        { name: "Python", icon: "python" },
+        { name: "Jenkins", icon: "jenkins" },
+        { name: "GitHub Actions", icon: "github" },
+      ],
+      images: [],
+    },
+    {
+      title: "Monitoring & Observability",
+      description: (
+        <>Implementing comprehensive monitoring solutions to ensure system reliability and rapid incident response.</>
+      ),
+      tags: [
+        { name: "Prometheus", icon: "prometheus" },
+        { name: "Grafana", icon: "grafana" },
+        { name: "ELK Stack", icon: "elastic" },
+      ],
+      images: [],
+    },
+  ],
+},
 };
 
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
-  // Create new blog posts by adding a new .mdx file to app/blog/posts
-  // All posts will be listed on the /blog route
+  title: "Insights on DevOps & ML Infrastructure", // Updated
+  description: `Technical deep-dives and lessons learned from ${person.name}`,
 };
 
 const work: Work = {
@@ -243,31 +221,6 @@ const gallery: Gallery = {
   images: [
     {
       src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-4.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-3.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-1.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/vertical-2.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-2.jpg",
       alt: "image",
       orientation: "horizontal",
     },
