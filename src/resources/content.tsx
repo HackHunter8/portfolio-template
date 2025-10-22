@@ -205,7 +205,7 @@ const about: About = {
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Insights on DevOps & ML Infrastructure", // Updated
+  title: "Insights on DevOps, AI, & Machine Learning", // Updated
   description: `Technical deep-dives and lessons learned from ${person.name}`,
 };
 
@@ -227,17 +227,17 @@ const gallery: Gallery = {
   // These are placeholder images, replace with your own
   images: [
     {
-      src: "/images/gallery/horizontal-1.jpg",
+      src: "/images/gallery/dracula.jpeg",
       alt: "image",
-      orientation: "horizontal",
+      orientation: "vertical",
     },
     {
       src: "/images/gallery/horizontal-4.jpg",
       alt: "image",
-      orientation: "horizontal",
+      orientation: "vertical",
     },
     {
-      src: "/images/gallery/vertical-3.jpg",
+      src: "/images/gallery/grty.jpeg",
       alt: "image",
       orientation: "vertical",
     },
