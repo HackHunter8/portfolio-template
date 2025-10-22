@@ -1,5 +1,5 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
-import { Line, Logo, Row, Text } from "@once-ui-system/core";
+import { Line,  Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
   firstName: "David",
@@ -40,7 +40,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: "/images/og/home.jpg",
+  image: "/images/og/fct.jpeg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
   headline: "Building bridges between DevOps & Machine Learning Systems",
@@ -81,118 +81,124 @@ const about: About = {
     display: true,
     link: "https://cal.com",
   },
+
   intro: {
     display: true,
     title: "Introduction",
     description: (
       <>
-        Hi I'm a Platform Engineer with experience building and maintaining scalable cloud-native applications and systems. 
-        I have powered everything from ML model deployment to intelligent automation in operation. 
-        Setting up robust K8s clusters, streamlining ML pipelines and applying AI to improve system reliability across multiple cloud environment. 
+        Hi I'm a Platform Engineer with experience building and maintaining scalable cloud-native applications and systems.
+        I have powered everything from ML model deployment to intelligent automation in operation.
+        Setting up robust K8s clusters, streamlining ML pipelines and applying AI to improve system reliability across multiple cloud environment.
         If you're looking for someone who understands systems and can bridge the gap between DevOps and ML.... Let's discuss your infrastructure needs!
       </>
     ),
   },
   work: {
-  display: true,
-  title: "Work Experience",
-  experiences: [
-    {
-      company: "Twitch",
-      timeframe: "2023 - Present",
-      role: "Platform Engineer",
-      achievements: [
-        <>
-          Architected and maintained Kubernetes clusters serving <strong>10,000+ daily active users</strong>, 
-          achieving 99.9% uptime while reducing deployment time by 40% through GitOps automation.
-        </>,
-        <>
-          Designed and implemented an end-to-end ML pipeline that automated model deployment, 
-          reducing data scientist deployment time from <strong>2 days to 30 minutes</strong>—a 96% improvement.
-        </>,
-        <>
-          Led the integration of AI-powered monitoring and alerting systems, 
-          enabling the team to detect and resolve incidents <strong>50% faster</strong> and reducing MTTR by 35%.
-        </>,
-      ],
-      images: [],
-    },
-    {
-      company: "Mace",
-      timeframe: "2020 - 2022",
-      role: "DevOps Engineer",
-      achievements: [
-        <>
-          Pioneered Infrastructure as Code adoption across 15+ microservices, 
-          cutting infrastructure provisioning time by <strong>60%</strong> and eliminating configuration drift.
-        </>,
-        <>
-          Re-engineered CI/CD pipelines using Jenkins and GitHub Actions, 
-          reducing deployment time by <strong>35%</strong> while improving system reliability by 25%.
-        </>,
-        <>
-          Collaborated with product and engineering teams to launch new platform features, 
-          contributing to a <strong>15% increase in company revenue</strong> through improved delivery velocity.
-        </>,
-      ],
-      images: [],
-    },
-  ],
-},
+    display: true,
+    title: "Work Experience",
+    experiences: [
+      {
+        company: "Twitch",
+        timeframe: "2023 - Present",
+        role: "Platform Engineer",
+        achievements: [
+          <>
+            Architected and maintained Kubernetes clusters serving <strong>10,000+ daily active users</strong>,
+            achieving 99.9% uptime while reducing deployment time by 40% through GitOps automation.
+          </>,
+          <>
+            Designed and implemented an end-to-end ML pipeline that automated model deployment,
+            reducing data scientist deployment time from <strong>2 days to 30 minutes</strong>—a 96% improvement.
+          </>,
+          <>
+            Led the integration of AI-powered monitoring and alerting systems,
+            enabling the team to detect and resolve incidents <strong>50% faster</strong> and reducing MTTR by 35%.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Mace",
+        timeframe: "2020 - 2022",
+        role: "DevOps Engineer",
+        achievements: [
+          <>
+            Pioneered Infrastructure as Code adoption across 15+ microservices,
+            cutting infrastructure provisioning time by <strong>60%</strong> and eliminating configuration drift.
+          </>,
+          <>
+            Re-engineered CI/CD pipelines using Jenkins and GitHub Actions,
+            reducing deployment time by <strong>35%</strong> while improving system reliability by 25%.
+          </>,
+          <>
+            Collaborated with product and engineering teams to launch new platform features,
+            contributing to a <strong>15% increase in company revenue</strong> through improved delivery velocity.
+          </>,
+        ],
+        images: [],
+      },
+    ],
+  },
   technical: {
-  display: true,
-  title: "Technical Skills",
-  skills: [
-    {
-      title: "Kubernetes & Container Orchestration",
-      description: (
-        <>Architecting production-grade K8s clusters with high availability, auto-scaling, and disaster recovery capabilities.</>
-      ),
-      tags: [
-        { name: "Kubernetes", icon: "kubernetes" },
-        { name: "Docker", icon: "docker" },
-        { name: "Helm", icon: "helm" },
-      ],
-      images: [],
-    },
-    {
-      title: "Cloud Infrastructure & IaC",
-      description: (
-        <>Managing multi-cloud environments using Infrastructure as Code, ensuring consistency and reducing deployment time by 60%.</>
-      ),
-      tags: [
-        { name: "Terraform", icon: "terraform" },
-        { name: "AWS", icon: "aws" },
-        { name: "Azure", icon: "azure" },
-      ],
-      images: [],
-    },
-    {
-      title: "ML Operations & CI/CD",
-      description: (
-        <>Building automated pipelines for ML model deployment, monitoring, and continuous integration across development teams.</>
-      ),
-      tags: [
-        { name: "Python", icon: "python" },
-        { name: "Jenkins", icon: "jenkins" },
-        { name: "GitHub Actions", icon: "github" },
-      ],
-      images: [],
-    },
-    {
-      title: "Monitoring & Observability",
-      description: (
-        <>Implementing comprehensive monitoring solutions to ensure system reliability and rapid incident response.</>
-      ),
-      tags: [
-        { name: "Prometheus", icon: "prometheus" },
-        { name: "Grafana", icon: "grafana" },
-        { name: "ELK Stack", icon: "elastic" },
-      ],
-      images: [],
-    },
-  ],
-},
+    display: true,
+    title: "Technical Skills",
+    skills: [
+      {
+        title: "Kubernetes & Container Orchestration",
+        description: (
+          <>Architecting production-grade K8s clusters with high availability, auto-scaling, and disaster recovery capabilities.</>
+        ),
+        tags: [
+          { name: "Kubernetes", icon: "kubernetes" },
+          { name: "Docker", icon: "docker" },
+          { name: "Helm", icon: "helm" },
+        ],
+        images: [],
+      },
+      {
+        title: "Cloud Infrastructure & IaC",
+        description: (
+          <>Managing multi-cloud environments using Infrastructure as Code, ensuring consistency and reducing deployment time by 60%.</>
+        ),
+        tags: [
+          { name: "Terraform", icon: "terraform" },
+          { name: "AWS", icon: "aws" },
+          { name: "Azure", icon: "azure" },
+        ],
+        images: [],
+      },
+      {
+        title: "ML Operations & CI/CD",
+        description: (
+          <>Building automated pipelines for ML model deployment, monitoring, and continuous integration across development teams.</>
+        ),
+        tags: [
+          { name: "Python", icon: "python" },
+          { name: "Jenkins", icon: "jenkins" },
+          { name: "GitHub Actions", icon: "github" },
+        ],
+        images: [],
+      },
+      {
+        title: "Monitoring & Observability",
+        description: (
+          <>Implementing comprehensive monitoring solutions to ensure system reliability and rapid incident response.</>
+        ),
+        tags: [
+          { name: "Prometheus", icon: "prometheus" },
+          { name: "Grafana", icon: "grafana" },
+          { name: "ELK Stack", icon: "elastic" },
+        ],
+        images: [],
+      },
+    ],
+  },
+  studies: {
+    display: false,
+    title: "",
+    institutions: []
+  }
 };
 
 const blog: Blog = {
