@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Ukanna",
   name: `David Ukanna`,
   role: "Platform Engineering Consultant",
-  avatar: "/images/port pic.jpeg",
+  avatar: "/images/fct.jpeg",
   email: "realdavidwealth@gmail.com",
   location: "Europe/Dublin", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: ["English"], // optional: Leave the array empty if you don't want to display languages
@@ -15,7 +15,7 @@ const person: Person = {
 const newsletter: Newsletter = {
   display: true,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>Weekly insights on DevOps, ML infrastructure, and cloud-native engineering</>, // Updated
+  description: <>Weekly insights on DevOps, ML, AI and cloud-native engineering</>, // Updated
 };
 
 const social: Social = [
@@ -58,10 +58,7 @@ const home: Home = {
     ),
     href: "/work/building-system",
   },
-  subline: (
-   <>I help organizations deploy ML at scale and automate cloud operations,
-    all the way from architecting K8s clusters to building intelligent CI/CD pipelines that deliver measurable ROI</>
-  ),
+  subline: undefined
 };
 
 const about: About = {
@@ -104,15 +101,15 @@ const about: About = {
         role: "Platform Engineer",
         achievements: [
           <>
-            Architected and maintained Kubernetes clusters serving <strong>10,000+ daily active users</strong>,
+            I architected and maintained Kubernetes clusters serving <strong>10,000+ daily active users</strong>,
             achieving 99.9% uptime while reducing deployment time by 40% through GitOps automation.
           </>,
           <>
-            Designed and implemented an end-to-end ML pipeline that automated model deployment,
+            I designed and implemented an end-to-end ML pipeline that automated model deployment,
             reducing data scientist deployment time from <strong>2 days to 30 minutes</strong>—a 96% improvement.
           </>,
           <>
-            Led the integration of AI-powered monitoring and alerting systems,
+            I led the integration of AI-powered monitoring and alerting systems,
             enabling the team to detect and resolve incidents <strong>50% faster</strong> and reducing MTTR by 35%.
           </>,
         ],
@@ -124,15 +121,15 @@ const about: About = {
         role: "DevOps Engineer",
         achievements: [
           <>
-            Pioneered Infrastructure as Code adoption across 15+ microservices,
+            I pioneered Infrastructure as Code adoption across 15+ microservices,
             cutting infrastructure provisioning time by <strong>60%</strong> and eliminating configuration drift.
           </>,
           <>
-            Re-engineered CI/CD pipelines using Jenkins and GitHub Actions,
+            I re-engineered CI/CD pipelines using Jenkins and GitHub Actions,
             reducing deployment time by <strong>35%</strong> while improving system reliability by 25%.
           </>,
           <>
-            Collaborated with product and engineering teams to launch new platform features,
+            I collaborated with product and engineering teams to launch new platform features,
             contributing to a <strong>15% increase in company revenue</strong> through improved delivery velocity.
           </>,
         ],
@@ -147,7 +144,8 @@ const about: About = {
       {
         title: "Kubernetes & Container Orchestration",
         description: (
-          <>Architecting production-grade K8s clusters with high availability, auto-scaling, and disaster recovery capabilities.</>
+          <>I architect and operate production Kubernetes environments built for scale and resilience. 
+          My clusters are designed with HA topologies, dynamic autoscaling policies, and tested disaster recovery runbooks that guarantee uptime when it matters.</>
         ),
         tags: [
           { name: "Kubernetes", icon: "kubernetes" },
@@ -159,7 +157,8 @@ const about: About = {
       {
         title: "Cloud Infrastructure & IaC",
         description: (
-          <>Managing multi-cloud environments using Infrastructure as Code, ensuring consistency and reducing deployment time by 60%.</>
+          <>I provision and manage multi-cloud infrastructure entirely through code. Terraform and CloudFormation are my default. 
+           This approach has consistently cut deployment cycles by 60%+ while eliminating configuration drift and manual errors.</>
         ),
         tags: [
           { name: "Terraform", icon: "terraform" },
@@ -171,7 +170,8 @@ const about: About = {
       {
         title: "ML Operations & CI/CD",
         description: (
-          <>Building automated pipelines for ML model deployment, monitoring, and continuous integration across development teams.</>
+          <>I build end-to-end CI/CD pipelines that take ML models from development to production with automated testing, deployment, and monitoring. 
+          My pipelines bridge the gap between data science experimentation and production reliability.</>
         ),
         tags: [
           { name: "Python", icon: "python" },
@@ -183,7 +183,8 @@ const about: About = {
       {
         title: "Monitoring & Observability",
         description: (
-          <>Implementing comprehensive monitoring solutions to ensure system reliability and rapid incident response.</>
+          <>I design observability stacks using Prometheus, Grafana, and ELK that provide real-time visibility into system health. 
+          My monitoring setups don't just alert,  they enable root cause analysis and sub-15-minute incident response.</>
         ),
         tags: [
           { name: "Prometheus", icon: "prometheus" },
