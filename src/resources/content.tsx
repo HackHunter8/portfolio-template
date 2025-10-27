@@ -46,7 +46,7 @@ const home: Home = {
   headline: "Building bridges between DevOps & Machine Learning Systems",
   description: `Portfolio website showcasing my work as a ${person.role}. DevOps and Machine Learning Systems at Scale.`,
   featured: {
-    display: true,
+    display: false,
     title: (
       <Row gap="12" vertical="center">
         <strong className="ml-4">Once UI</strong>{" "}
