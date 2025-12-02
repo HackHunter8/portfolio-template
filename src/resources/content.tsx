@@ -46,16 +46,6 @@ const home: Home = {
   description: `Portfolio website showcasing my work as a ${person.role}. DevOps and Machine Learning Systems at Scale.`,
   featured: {
     display: false,
-    title: (
-      <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
-        <Line background="brand-alpha-strong" vert height="20" />
-        <Text marginRight="4" onBackground="brand-medium">
-          Featured work
-        </Text>
-      </Row>
-    ),
-    href: "/work/building-system",
   },
   subline: undefined
 };
@@ -196,7 +186,7 @@ const about: About = {
   },
   studies: {
     display: false,
-    title: "",
+    title: "Education",
     institutions: []
   }
 };

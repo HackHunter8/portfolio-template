@@ -1,0 +1,382 @@
+---
+title: "Infrastructure as Code Migration"
+publishedAt: "2024-01-20"
+summary: "Led enterprise-wide IaC transformation using Terraform, eliminating configuration drift and reducing infrastructure provisioning time by 60% across 15+ microservices."
+images:
+  - "/images/projects/iac-migration.jpg"
+team:
+  - name: "David Ukanna"
+    role: "DevOps Engineer"
+    avatar: "/images/fct.jpeg"
+---
+
+## Overview
+
+Manual infrastructure management doesn't scale. At Mace, our infrastructure was a mix of manually configured resources, inconsistent environments, and tribal knowledge. This project transformed our entire infrastructure stack to a code-first approach, establishing the foundation for scalable, reliable, and auditable infrastructure management.
+
+## The Problem
+
+Our infrastructure challenges were costing the company time, money, and reliability:
+
+### Pain Points
+- **Manual provisioning** taking 3-5 days per environment
+- **Configuration drift** between dev, staging, and production
+- **No audit trail** of infrastructure changes
+- **Knowledge silos** - only 2-3 people knew how to provision resources
+- **Frequent outages** from manual misconfigurations
+- **Compliance issues** due to lack of documentation
+- **Slow disaster recovery** with no reproducible infrastructure
+
+### Business Impact
+- Delayed feature launches by weeks
+- Increased operational costs by 40%
+- Customer-facing incidents from environment inconsistencies
+- Failed audits due to incomplete documentation
+
+## Solution Strategy
+
+I developed a comprehensive migration strategy focusing on minimal disruption while maximizing value:
+
+### Phase 1: Assessment & Planning (2 weeks)
+- Inventory of all infrastructure resources across AWS accounts
+- Dependency mapping between services
+- Risk assessment and rollback planning
+- Team training on IaC principles and Terraform
+
+### Phase 2: Foundation (4 weeks)
+- Terraform state management setup with S3 + DynamoDB
+- Module library development for reusable components
+- CI/CD pipeline integration
+- Security and compliance guardrails
+
+### Phase 3: Migration (8 weeks)
+- Iterative migration of services (least critical first)
+- Import existing resources using `terraform import`
+- Documentation and runbooks for each module
+- Gradual handoff to development teams
+
+### Phase 4: Optimization (Ongoing)
+- Cost optimization using spot instances and right-sizing
+- Performance tuning based on metrics
+- Continuous improvement of modules
+
+## Architecture
+
+### Repository Structure
+```
+infrastructure/
+├── modules/
+│   ├── vpc/
+│   ├── eks/
+│   ├── rds/
+│   ├── s3/
+│   └── monitoring/
+├── environments/
+│   ├── dev/
+│   ├── staging/
+│   └── production/
+├── shared/
+│   ├── networking/
+│   └── security/
+└── policies/
+    ├── opa/
+    └── sentinel/
+```
+
+### Core Terraform Modules
+
+#### VPC Module
+```hcl
+module "vpc" {
+  source = "../../modules/vpc"
+  
+  environment         = var.environment
+  vpc_cidr           = var.vpc_cidr
+  availability_zones = var.availability_zones
+  
+  public_subnets     = var.public_subnets
+  private_subnets    = var.private_subnets
+  database_subnets   = var.database_subnets
+  
+  enable_nat_gateway = true
+  enable_vpn_gateway = false
+  
+  tags = merge(
+    var.common_tags,
+    {
+      Module = "vpc"
+    }
+  )
+}
+```
+
+#### EKS Cluster Module
+```hcl
+module "eks" {
+  source = "../../modules/eks"
+  
+  cluster_name    = "${var.environment}-cluster"
+  cluster_version = "1.28"
+  
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = module.vpc.private_subnets
+  
+  node_groups = {
+    general = {
+      desired_capacity = 3
+      max_capacity     = 10
+      min_capacity     = 2
+      instance_types   = ["t3.large"]
+      
+      k8s_labels = {
+        Environment = var.environment
+        Workload    = "general"
+      }
+    }
+  }
+  
+  enable_irsa = true
+  
+  tags = var.common_tags
+}
+```
+
+#### RDS Module
+```hcl
+module "database" {
+  source = "../../modules/rds"
+  
+  identifier = "${var.environment}-postgres"
+  engine     = "postgres"
+  engine_version = "15.4"
+  
+  instance_class    = var.db_instance_class
+  allocated_storage = var.db_allocated_storage
+  
+  db_name  = var.db_name
+  username = var.db_username
+  password = random_password.db_password.result
+  
+  vpc_security_group_ids = [module.security_group.id]
+  db_subnet_group_name   = module.vpc.database_subnet_group_name
+  
+  backup_retention_period = 30
+  backup_window          = "03:00-04:00"
+  maintenance_window     = "Mon:04:00-Mon:05:00"
+  
+  enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
+  
+  tags = var.common_tags
+}
+```
+
+### State Management
+
+Implemented secure, scalable state management:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "mace-terraform-state"
+    key            = "infrastructure/production/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+    
+    # State file versioning enabled
+    versioning = true
+  }
+}
+```
+
+### CI/CD Pipeline Integration
+
+Created automated workflows for infrastructure changes:
+
+```yaml
+name: Terraform CI/CD
+
+on:
+  pull_request:
+    paths:
+      - 'infrastructure/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'infrastructure/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
+      
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+      
+      - name: Terraform Init
+        run: terraform init
+      
+      - name: Terraform Validate
+        run: terraform validate
+      
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        
+      - name: Policy Check (OPA)
+        run: |
+          conftest test tfplan \
+            --policy policies/
+      
+      - name: Cost Estimation
+        uses: infracost/actions@v2
+        with:
+          path: tfplan
+      
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve tfplan
+```
+
+## Implementation Highlights
+
+### 1. Zero-Downtime Migration
+Migrated production infrastructure without a single outage:
+- Used Terraform `import` to bring existing resources under management
+- Implemented blue-green deployments for database migrations
+- Created fallback procedures for every critical change
+
+### 2. Security & Compliance
+Built security into every layer:
+- **Secrets management** using AWS Secrets Manager + Terraform
+- **Policy as Code** using Open Policy Agent (OPA)
+- **Automated compliance checks** in CI pipeline
+- **Audit logging** for all infrastructure changes
+- **Least privilege** IAM policies generated per module
+
+### 3. Cost Optimization
+Automated cost management:
+```hcl
+# Auto-scaling based on schedule
+resource "aws_autoscaling_schedule" "scale_down" {
+  scheduled_action_name  = "scale-down-evening"
+  autoscaling_group_name = aws_autoscaling_group.main.name
+  recurrence            = "0 19 * * *"
+  min_size              = 1
+  max_size              = 5
+  desired_capacity      = 1
+}
+
+resource "aws_autoscaling_schedule" "scale_up" {
+  scheduled_action_name  = "scale-up-morning"
+  autoscaling_group_name = aws_autoscaling_group.main.name
+  recurrence            = "0 7 * * *"
+  min_size              = 3
+  max_size              = 10
+  desired_capacity      = 5
+}
+```
+
+### 4. Disaster Recovery
+Implemented complete DR capabilities:
+- **Multi-region replication** for critical databases
+- **Automated backups** with point-in-time recovery
+- **Infrastructure versioning** enabling rollback to any previous state
+- **DR testing** automated monthly
+
+## Results & Impact
+
+### Operational Efficiency
+- ⚡ **60% reduction** in infrastructure provisioning time (5 days → 2 days → 2 hours)
+- 🎯 **100% elimination** of configuration drift
+- 📊 **Zero manual changes** in production after migration
+- 🚀 **35% faster** deployment cycles
+
+### Cost Savings
+- 💰 **$120k annual savings** through resource optimization
+- 📉 **25% reduction** in compute costs via right-sizing
+- 🔋 **40% savings** on non-production environments with scheduled scaling
+
+### Reliability & Security
+- ✅ **Zero outages** during 8-week migration
+- 🔒 **100% audit trail** of all infrastructure changes
+- 🛡️ **Passed compliance audits** (SOC2, ISO 27001)
+- 📈 **Improved MTTR** by 50% with reproducible environments
+
+### Team Productivity
+- 👥 **Democratized infrastructure** - any engineer can provision resources
+- 📚 **Self-service infrastructure** via module catalog
+- 🎓 **Knowledge sharing** through documented modules
+- ⏱️ **3 hours saved per week** per engineer on manual tasks
+
+## Technical Stack
+
+**IaC Tools:**
+- Terraform, Terragrunt, Packer
+
+**Cloud Platforms:**
+- AWS (primary), Azure (hybrid workloads)
+
+**CI/CD:**
+- GitHub Actions, Jenkins
+
+**Security:**
+- OPA, Checkov, tfsec, Vault
+
+**Monitoring:**
+- Terraform Cloud, Datadog, CloudWatch
+
+## Challenges & Solutions
+
+### Challenge 1: State File Conflicts
+**Problem:** Multiple engineers making changes caused state file locks.
+
+**Solution:** Implemented state file splitting by service + automated state lock cleanup + clear ownership model.
+
+### Challenge 2: Secrets Management
+**Problem:** Sensitive data needed in Terraform without committing to git.
+
+**Solution:** Integrated AWS Secrets Manager with dynamic secrets + encrypted state files + rotating credentials.
+
+### Challenge 3: Team Adoption
+**Problem:** Engineers resistant to learning Terraform.
+
+**Solution:** Created training program + comprehensive documentation + "office hours" for support + celebrated early wins.
+
+## Best Practices Established
+
+1. **Module versioning** - Semantic versioning for all modules
+2. **Documentation** - README.md in every module with examples
+3. **Testing** - Terratest for automated module testing
+4. **Code review** - Required reviews for infrastructure changes
+5. **Change management** - Staging deployment before production
+6. **Tagging strategy** - Consistent tags for cost tracking and governance
+
+## Lessons Learned
+
+1. **Start small, iterate** - Don't try to migrate everything at once
+2. **Documentation is critical** - Future you will thank you
+3. **Security first** - Build security in from the start, not after
+4. **Involve the team** - Adoption requires buy-in and training
+5. **Monitor everything** - Cost, compliance, drift detection
+6. **Plan for state** - State management is critical to success
+
+## Future Roadmap
+
+- **Multi-cloud abstraction** using Pulumi for cloud-agnostic IaC
+- **GitOps for K8s** with ArgoCD + Terraform
+- **Self-service portal** for developers to provision environments
+- **FinOps integration** for automated cost optimization
+- **Policy-as-Code expansion** for comprehensive governance
+
+## Conclusion
+
+This IaC migration transformed Mace's infrastructure from a liability to a competitive advantage. By eliminating manual processes, we reduced provisioning time by 60%, achieved 100% audit compliance, and saved $120k annually while improving reliability and developer productivity.
+
+The key lesson: Infrastructure as Code isn't just about automation—it's about creating a culture of reproducibility, documentation, and continuous improvement.
